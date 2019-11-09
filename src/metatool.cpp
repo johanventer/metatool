@@ -602,9 +602,9 @@ outputPreamble() {
 static void
 outputMetaDefinitions() {
     printf("enum Meta_StructMember_Flags {\n"
-           "    Meta_StructMember_Flags_None,\n"
-           "    Meta_StructMember_Flags_Array,\n"
-           "    Meta_StructMember_Flags_Pointer\n"
+           "    Meta_StructMember_Flags_None    = 0,\n"
+           "    Meta_StructMember_Flags_Array   = 1,\n"
+           "    Meta_StructMember_Flags_Pointer = 2\n"
            "};\n\n");
 
     printf("struct Meta_Struct {\n");
