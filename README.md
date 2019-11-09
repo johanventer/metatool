@@ -134,9 +134,9 @@ Given the example struct and enum in `Usage` above, you can now do these kinds o
 		    }
 	  }
 
-**NOTE: The API is subject to change, and I'm aware that the whole `meta_getMemberPtr` and resulting pointer deferencing is ugly. Perhaps judicious template usage could make this all nicer.**
+The `Meta_Type_*` enum members are generated automatically.
 
-**ALSO NOTE: The Meta_Type_* enum members are generated automatically.**
+__NOTE: The API is subject to change, and I'm aware that the whole `meta_getMemberPtr` and resulting pointer deferencing is ugly. Perhaps judicious template usage could make this all nicer.__
 
 # API
 
