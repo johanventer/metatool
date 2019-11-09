@@ -2,7 +2,7 @@
 This is a very simple C++ meta introspection generation tool. It was a weekend project just to see how hard it was to do this stuff. Turns out it's not that hard.
 
 ## What does it do?
-It allows you to generate meta code which enables runtime introspection of struct and enum members, allowing you:
+It allows you to generate meta code which enables runtime introspection of struct and enum members, allowing you to:
 
 * Automatically convert enum members to their string values for display
 * Iterate the members of an enum
@@ -136,9 +136,9 @@ Given the example struct and enum in `Usage` above, you can now do these kinds o
 
 The `Meta_Type_*` enum members are generated automatically.
 
-__NOTE: The API is subject to change, and I'm aware that the whole `meta_getMemberPtr` and resulting pointer deferencing is ugly. Perhaps judicious template usage could make this all nicer.__
-
 # API
+
+__NOTE: The API is subject to change, and I'm aware that the whole `meta_getMemberPtr` and resulting pointer deferencing is ugly. Perhaps judicious template usage could make this all nicer.__
 
 ## Basics
 These are the meta structures that are defined:
@@ -182,6 +182,10 @@ Returns a `Meta_Struct` from a pointer of your introspected struct.
     Meta_StructMember *meta_getMembers(YourStruct *s)
       
 Returns an array of `Meta_StructMember`, the length of which is the `memberCount` you can get from `meta_get` above.
+
+    #define meta_getMemberPtr(s, m) (void *)(((intptr_t)&(s)) + (m)->offset)
+    
+Macro which makes it easier to get a pointer to a struct member, given the struct and the `StructMember`.
     
 ## Enums
 
