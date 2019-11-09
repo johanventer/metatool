@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+build/*
+meta_generated.h
+test.cpp
