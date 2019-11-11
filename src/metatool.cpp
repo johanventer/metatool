@@ -456,6 +456,7 @@ struct StructMember {
 
 struct Struct {
     Token name;
+    int memberCount;
     StructMember *firstMember;
     Struct *next;
 };
@@ -467,6 +468,7 @@ struct EnumMember {
 
 struct Enum {
     Token name;
+    int memberCount;
     EnumMember *firstMember;
     Enum *next;
 };
@@ -521,6 +523,8 @@ parseStruct(Tokenizer *tokenizer) {
             member->next = new_struct->firstMember;
             new_struct->firstMember = member;
         }
+
+        new_struct->memberCount++;
     }
     requireToken(tokenizer, TokenType_Semicolon);
 
@@ -562,6 +566,8 @@ parseEnum(Tokenizer *tokenizer) {
             member->next = new_enum->firstMember;
             new_enum->firstMember = member;
         }
+
+        new_enum->memberCount++;
 
         if (token.type == TokenType_Comma) {
             token = getToken(tokenizer);
@@ -647,14 +653,8 @@ outputTypesEnum() {
 
 static void 
 outputStruct(Struct *s) {
-    int numberOfMembers = 0;
-
-    for (StructMember *member = s->firstMember; member; member = member->next) {
-        numberOfMembers++;
-    }
-
     printf("Meta_Struct meta_%.*s = { \"%.*s\", %d };\n\n", 
-            s->name.text.length, s->name.text.data, s->name.text.length, s->name.text.data, numberOfMembers);
+            s->name.text.length, s->name.text.data, s->name.text.length, s->name.text.data, s->memberCount);
 
     printf("Meta_StructMember meta_%.*s_members[] = {\n", s->name.text.length, s->name.text.data);
 
@@ -699,14 +699,8 @@ outputStruct(Struct *s) {
 
 static void
 outputEnum(Enum *e) {
-    int numberOfMembers = 0;
-
-    for (EnumMember *member = e->firstMember; member; member = member->next) {
-        numberOfMembers++;
-    }
-
     printf("Meta_Enum meta_%.*s = { \"%.*s\", %d };\n\n", 
-            e->name.text.length, e->name.text.data, e->name.text.length, e->name.text.data, numberOfMembers);
+            e->name.text.length, e->name.text.data, e->name.text.length, e->name.text.data, e->memberCount);
 
     printf("Meta_EnumMember meta_%.*s_members[] = {\n", e->name.text.length, e->name.text.data);
     for (EnumMember *member = e->firstMember; member; member = member->next) {
